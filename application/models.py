@@ -17,9 +17,9 @@ class Transactions(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    date_posted = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
-   user_id = db.Column(db.Float, db.ForeignKey('users.id'), nullable=False)
+   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
    transaction_type = db.Column(db.String(100), nullable=False)
-   amount = db.Column(db.Integer, nullable=False)
+   amount = db.Column(db.Float, nullable=False)
 
 
 class IncomingTransaction(db.Model):
