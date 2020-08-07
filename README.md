@@ -2,7 +2,7 @@
 
 ### Additional Resources:
 * Presentation:
-* Jira Board:
+* Jira Board: https://smtbore.atlassian.net/secure/RapidBoard.jspa?rapidView=1&projectKey=BIL&selectedIssue=BIL-7
 * Application:
 
 ## Contents
