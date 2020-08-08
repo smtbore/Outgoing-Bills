@@ -1,4 +1,4 @@
-from application import db
+from application import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
 
@@ -33,3 +33,7 @@ class OutgoingTransaction(db.Model):
   TransactionOutgoingID = db.Column(
       db.Integer, db.ForeignKey('transactions.id'), nullable=False)
   OutgoingCategory = db.Column(db.String(13), nullable=True)
+
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
