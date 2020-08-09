@@ -139,7 +139,7 @@ def incoming_transaction():
 @login_required
 def delete_transaction():
   transaction=Transactions.query.filter_by(id=id).all()
-  for transaction in transaction:
+  for transaction in Transactions:
     db.session.delete(transaction)
     db.session.commit()
   return redirect(url_for('new_transaction'))
