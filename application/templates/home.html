@@ -1,4 +1,16 @@
 {% extends 'layout.html' %}
 {% block body_content %}
+<div class="PageTitle">
   <h1>Outgoing Bills</h1>
+</div>
+<div>
+  <h2>Outgoings</h2>
+{% for outgoing_transaction in transactions %}
+{% if outgoing_transaction.user_id == current_user.id %}
+<div class="PageContent">
+  <h3><strong>Created on:</strong> {{ outgoing_transaction.date_posted }}</h3>
+  <p><strong>Sum: </strong>£{{ outgoing_transaction.amount }}</p>
+  <p><strong>Category: </strong>{{ OutgoingTransaction.OutgoingCategory }}</p>
+</div>
+{% endif %}
 {% endblock %}
