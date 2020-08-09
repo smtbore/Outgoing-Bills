@@ -1,6 +1,6 @@
 from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
-from application.models import Users, Transactions, IncomingTransaction, OutgoingTransaction
+from application.models import Users, Transactions, OutgoingTransaction
 from datetime import datetime
 from application.forms import RegistrationForm, LoginForm, UpdateAccountForm, OutgoingTransactionForm, IncomingTransactionForm
 from flask import render_template, redirect, url_for, request
