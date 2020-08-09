@@ -143,3 +143,19 @@ def delete_transaction(id):
     db.session.delete(transaction)
     db.session.commit()
   return redirect(url_for('new_transaction'))
+
+@app.route("/update/<id>", methods=['GET', 'POST'])
+@login_required
+def update_transaction(id):
+  form=OutgoingTransactionForm()
+  transaction=Transactions.query.filter_by(id=id).first()
+  category=OutgoingTransaction.query.filter_by(id=id).first()
+  if form.validate_on_submit():
+      transaction.amount=form.outgoing_transaction_amount.data,
+      transaction.date_posted = datetime.now()
+      category.OutgoingCategory=form.outgoing_category.data
+
+  elif request.method == 'GET':
+    form.outgoing_transaction_amount.data = transaction.amount
+    form.outgoing_category.data = category.OutgoingCategory
+  return render_template('outgoingTransaction.html', title='Update Transaction', form=form)
