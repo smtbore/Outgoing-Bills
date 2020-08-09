@@ -103,7 +103,7 @@ def outgoing_transaction():
         amount=form.outgoing_transaction_amount.data
     )
     outgoingTransactionData = OutgoingTransaction(
-        outgoing_category=form.outgoing_category.data
+        OutgoingCategory=form.outgoing_category.data
     )
 
     db.session.add(transactionData)
