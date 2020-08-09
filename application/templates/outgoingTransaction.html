@@ -19,7 +19,7 @@
       {{ form.outgoing_category }}
       {% if form.outgoing_category.errors %}
       <div class="error">
-        {% for error in form.outgoing_transaction_amount.errors %}
+        {% for error in form.outgoing_category.errors %}
         <span>{{ error }}</span>
         {% endfor %}
       </div>
