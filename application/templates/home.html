@@ -10,7 +10,7 @@
   <h3><strong>Created on:</strong> {{ outgoing_transaction.date_posted }}</h3>
   <p><strong>Sum: </strong>£{{ outgoing_transaction.amount }}</p>
   <p><strong>Category:</strong>{{ outgoing_transaction.transaction_type }}</p>
-  <a href="{{ url_for('delete_transaction', id=Transactions.id)">Delete Transaction</a>
+  <a href="{{ url_for('delete_transaction', id=outgoing_transaction.id) }}">Delete Transaction</a>
 </div>
 {% endfor %}
 {% else %}
