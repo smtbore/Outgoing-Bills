@@ -1,7 +1,8 @@
 from application import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
-from application.models import Users
-from application.forms import RegistrationForm, LoginForm, UpdateAccountForm
+from application.models import Users, Transactions, IncomingTransaction, OutgoingTransaction
+from datetime import datetime
+from application.forms import RegistrationForm, LoginForm, UpdateAccountForm, OutgoingTransactionForm, IncomingTransactionForm
 from flask import render_template, redirect, url_for, request
 
 
@@ -83,3 +84,57 @@ def account_delete():
     db.session.delete(account)
     db.session.commit()
     return redirect(url_for('register'))
+
+@app.route("/newtransaction")
+@login_required
+def new_transaction():
+  return render_template('newTransaction.html', title='New Transaction')
+
+
+@app.route("/newtransaction/outgoing", methods=["GET", "POST"])
+@login_required
+def outgoing_transaction():
+  form = OutgoingTransactionForm()
+  if form.validate_on_submit():
+    transactionData = Transactions(
+        date_posted=datetime.now(),
+        TransactionOwner=current_user,
+        transaction_type="Outgoing",
+        amount=form.outgoing_transaction_amount.data
+    )
+    outgoingTransactionData = OutgoingTransaction(
+        outgoing_category=form.outgoing_category.data
+    )
+
+    db.session.add(transactionData)
+    db.session.add(outgoingTransactionData)
+    db.session.commit()
+    return redirect(url_for('home'))
+  else:
+    print(form.errors)
+
+  return render_template('outgoingTransaction.html', title='New Outgoing', form=form)
+
+@app.route("/newtransaction/incoming", methods=["GET", "POST"])
+@login_required
+def incoming_transaction():
+  form = IncomingTransactionForm()
+  if form.validate_on_submit():
+    transactionData = Transactions(
+        date_posted=datetime.now(),
+        TransactionOwner=current_user,
+        transaction_type="Incoming",
+        amount=form.outgoing_transaction_amount.data
+    )
+    incomingTransactionData = IncomingTransaction(
+        outgoing_category=form.outgoing_category.data
+    )
+
+    db.session.add(transactionData)
+    db.session.add(incomingTransactionData)
+    db.session.commit()
+    return redirect(url_for('home'))
+  else:
+    print(form.errors)
+
+  return render_template('incomingTransaction.html', title='New Incoming', form=form)

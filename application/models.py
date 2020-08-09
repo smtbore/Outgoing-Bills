@@ -18,7 +18,7 @@ class Transactions(db.Model):
    date_posted = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
    user_id = db.Column(db.Float, db.ForeignKey('users.id'), nullable=False)
-   transaction_type = db.Column(db.String(100), nullable=False)
+   transaction_type = db.Column(db.String(10), nullable=False)
    amount = db.Column(db.Integer, nullable=False)
 
 
