@@ -154,10 +154,10 @@ def update_transaction(id):
   form = UpdateTransactionForm()
   transaction = Transactions.query.filter_by(id=id).first()
   if form.validate_on_submit():
-      transaction.amount = form.outgoing_transaction_amount.data,
+      transaction.amount = form.updated_amount.data,
       transaction.date_posted = datetime.now()
       db.session.commit()
       return redirect(url_for('home'))
   elif request.method == 'GET':
-    form.outgoing_transaction_amount.data = transaction.amount
+    form.updated_amount.data = transaction.amount
   return render_template('updateTransaction.html', title='Update Transaction', form=form)
