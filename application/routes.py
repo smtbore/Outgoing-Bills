@@ -124,7 +124,7 @@ def incoming_transaction():
         date_posted=datetime.now(),
         TransactionOwner=current_user,
         transaction_type="Incoming",
-        amount=form.outgoing_transaction_amount.data
+        amount=form.incoming_transaction_amount.data
     )
     incomingTransactionData = IncomingTransaction(
         outgoing_category=form.outgoing_category.data
