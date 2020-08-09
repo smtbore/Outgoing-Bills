@@ -5,10 +5,10 @@
 </div>
 <div>
   <h2>Outgoings</h2>
-{% for outgoing in transactions %}
+{% for outgoing_transaction in outgoing %}
 <div class="PageContent">
-  <h3><strong>Created on:</strong> {{ outgoing.date_posted }}</h3>
-  <p><strong>Sum: </strong>£{{ outgoing.amount }}</p>
+  <h3><strong>Created on:</strong> {{ outgoing_transaction.date_posted }}</h3>
+  <p><strong>Sum: </strong>£{{ outgoing_transaction.amount }}</p>
   <p><strong>Category: </strong>{{ OutgoingTransaction.OutgoingCategory }}</p>
 </div>
 {% endfor %}
