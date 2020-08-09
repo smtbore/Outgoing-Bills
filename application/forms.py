@@ -86,6 +86,13 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError('Email already in use')
 
+class UpdateTransactionForm(FlaskForm):
+  updated_amount = DecimalField('New Amount',
+    places=2,
+    validators=[
+      DataRequired()
+    ])
+  submit = SubmitField('Update Transaction')
 
 class OutgoingTransactionForm(FlaskForm):
   outgoing_category = SelectField(
