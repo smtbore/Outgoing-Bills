@@ -30,8 +30,6 @@ class IncomingTransaction(db.Model):
 
 class OutgoingTransaction(db.Model):
   id = db.Column(db.Integer, primary_key=True)
-  TransactionOutgoingID = db.Column(
-      db.Integer, db.ForeignKey('transactions.id'), nullable=False)
   OutgoingCategory = db.Column(db.String(13), nullable=True)
 
 @login_manager.user_loader

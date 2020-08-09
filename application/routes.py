@@ -103,7 +103,7 @@ def outgoing_transaction():
         amount=form.outgoing_transaction_amount.data
     )
     outgoingTransactionData = OutgoingTransaction(
-        outgoing_category=form.outgoing_category.data
+        OutgoingCategory=form.outgoing_category.data
     )
 
     db.session.add(transactionData)
@@ -124,14 +124,9 @@ def incoming_transaction():
         date_posted=datetime.now(),
         TransactionOwner=current_user,
         transaction_type="Incoming",
-        amount=form.outgoing_transaction_amount.data
+        amount=form.incoming_transaction_amount.data
     )
-    incomingTransactionData = IncomingTransaction(
-        outgoing_category=form.outgoing_category.data
-    )
-
     db.session.add(transactionData)
-    db.session.add(incomingTransactionData)
     db.session.commit()
     return redirect(url_for('home'))
   else:
