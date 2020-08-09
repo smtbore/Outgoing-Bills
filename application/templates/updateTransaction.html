@@ -4,11 +4,11 @@
   <form method="POST" action="">
     {{ form.hidden_tag() }}
     <div class="form-group">
-      {{ form.outgoing_transaction_amount.label }}
-      {{ form.outgoing_transaction_amount }}
-      {% if form.outgoing_transaction_amount.errors %}
+      {{ form.updated_amount.label }}
+      {{ form.updated_amount }}
+      {% if form.updated_amount.errors %}
       <div class="error">
-        {% for error in form.outgoing_transaction_amount.errors %}
+        {% for error in form.updated_amount.errors %}
         <span>{{ error }}</span>
         {% endfor %}
       </div>
