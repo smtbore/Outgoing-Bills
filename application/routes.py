@@ -134,3 +134,12 @@ def incoming_transaction():
     print(form.errors)
 
   return render_template('incomingTransaction.html', title='New Incoming', form=form)
+
+@app.route("/delete/<id>", methods=["GET", "POST"])
+@login_required
+def delete_transaction():
+  transaction=Transactions.query.filter_by(id=id).all()
+  for transaction in transaction:
+    db.session.delete(transaction)
+    db.session.commit()
+  return redirect(url_for('new_transaction'))
