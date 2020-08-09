@@ -9,7 +9,7 @@ from flask import render_template, redirect, url_for, request
 @app.route('/')
 @app.route('/home')
 def home():
-  transactionData=Transactions.query.all()
+  transactionData = Transactions.query.all()
   return render_template('home.html', title='Home', outgoing=transactionData)
 
 
@@ -86,6 +86,7 @@ def account_delete():
     db.session.commit()
     return redirect(url_for('register'))
 
+
 @app.route("/newtransaction")
 @login_required
 def new_transaction():
@@ -116,6 +117,7 @@ def outgoing_transaction():
 
   return render_template('outgoingTransaction.html', title='New Outgoing', form=form)
 
+
 @app.route("/newtransaction/incoming", methods=["GET", "POST"])
 @login_required
 def incoming_transaction():
@@ -135,27 +137,29 @@ def incoming_transaction():
 
   return render_template('incomingTransaction.html', title='New Incoming', form=form)
 
+
 @app.route("/delete/<id>", methods=["GET", "POST"])
 @login_required
 def delete_transaction(id):
-  transaction=Transactions.query.filter_by(id=id).all()
+  transaction = Transactions.query.filter_by(id=id).all()
   for transaction in transaction:
     db.session.delete(transaction)
     db.session.commit()
   return redirect(url_for('new_transaction'))
 
+
 @app.route("/update/<id>", methods=['GET', 'POST'])
 @login_required
 def update_transaction(id):
-  form=OutgoingTransactionForm()
-  transaction=Transactions.query.filter_by(id=id).first()
-  category=OutgoingTransaction.query.filter_by(id=id).first()
+  form = OutgoingTransactionForm()
+  transaction = Transactions.query.filter_by(id=id).first()
+  category = OutgoingTransaction.query.filter_by(id=id).first()
   if form.validate_on_submit():
-      transaction.amount=form.outgoing_transaction_amount.data,
+      transaction.amount = form.outgoing_transaction_amount.data,
       transaction.date_posted = datetime.now()
-      category.OutgoingCategory=form.outgoing_category.data
+      category.OutgoingCategory = form.outgoing_category.data
 
   elif request.method == 'GET':
     form.outgoing_transaction_amount.data = transaction.amount
     form.outgoing_category.data = category.OutgoingCategory
-  return render_template('outgoingTransaction.html', title='Update Transaction', form=form)
+  return render_template('updateTransaction.html', title='Update Transaction', form=form)
