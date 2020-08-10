@@ -17,19 +17,20 @@ test_admin_password = "admin2020"
 
 
 class TestBase(LiveServerTestCase):
-   def create_app(self):
+  def create_app(self):
         app.config['SQLALCHEMY_DATABASE_URI'] = str(
             getenv('mysql+pymysql://root:root@35.246.125.7/testdb'))
         app.config['SECRET_KEY'] = getenv('smtb98')
         return app
 
-    def setUp(self):
+  def setUp(self):
         """Setup the test driver and create test users"""
         print("--------------------------NEXT-TEST----------------------------------------------")
         chrome_options = Options()
         chrome_options.binary_location = "/usr/bin/chromium-browser"
         chrome_options.add_argument("--headless")
-        self.driver = webdriver.Chrome(executable_path="/home/smtbore/chromedriver", chrome_options=chrome_options)
+        self.driver = webdriver.Chrome(
+            executable_path="/home/smtbore/chromedriver", chrome_options=chrome_options)
         self.driver.get("http://localhost:5000")
         db.session.commit()
         db.drop_all()
