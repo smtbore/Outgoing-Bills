@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body_content %}
+<div class="form">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.outgoing_transaction_amount.label }}
+      {{ form.outgoing_transaction_amount }}
+      {% if form.outgoing_transaction_amount.errors %}
+      <div class="error">
+        {% for error in form.outgoing_transaction_amount.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.outgoing_category.label }}
+      {{ form.outgoing_category }}
+      {% if form.outgoing_category.errors %}
+      <div class="error">
+        {% for error in form.outgoing_category.errors %}
+        <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <br>
+    <div class='form_group'>
+        {{ form.submit }}
+    </div>
+</form>
+</div>
+{% endblock body_content %}

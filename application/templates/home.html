@@ -1,4 +1,22 @@
 {% extends 'layout.html' %}
 {% block body_content %}
+<div class="PageTitle">
   <h1>Outgoing Bills</h1>
+</div>
+{% if current_user.is_authenticated %}
+  <h2>Transactions</h2>
+{% for outgoing_transaction in outgoing %}
+<div class="PageContent">
+  <h3><strong>Created on:</strong> {{ outgoing_transaction.date_posted }}</h3>
+  <p><strong>Sum: </strong>£{{ outgoing_transaction.amount }}</p>
+  <p><strong>Category: </strong>{{ outgoing_transaction.transaction_type }}</p>
+  <a href="{{ url_for('delete_transaction', id=outgoing_transaction.id) }}">Delete Transaction</a>
+  <br>
+  <a href="{{ url_for('update_transaction', id=outgoing_transaction.id) }}">Update Transaction</a>
+</div>
+{% endfor %}
+{% else %}
+<h3>Welcome to your money tracker!</h3>
+<p>Click here to <a href="{{ url_for('register') }}">register!</a> or <a href="{{ url_for('login') }}">here</a> to sign in!</p>
+{% endif %}
 {% endblock %}
