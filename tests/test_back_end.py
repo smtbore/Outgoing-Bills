@@ -124,7 +124,7 @@ class TestFunctionality(TestBase):
 
   def test_login_user(self):
     with self.client:
-      response = self.client.post(
+      self.client.post(
           '/login',
           data=dict(
               email="test@testemail.co.uk",
@@ -136,15 +136,21 @@ class TestFunctionality(TestBase):
 
   def test_logout_user(self):
     with self.client:
-      response = self.client.get(
+      self.client.get(
           '/logout',
           follow_redirects=True
       )
       self.assertFalse(current_user.is_authenticated)
 
+  def test_new_incoming_transaction(self):
+    self.client.post(url_for('login'), data=dict(email="test@testemail.co.uk", password="Testing123Testing"), follow_redirects=True)
+    self.client.post(url_for('incoming_transaction'), data=dict(incoming_transaction_amount="100"), follow_redirects=True)
+    response = self.client.get(url_for('home'))
+    self.assertIn(b'100', response.data)
+
   def test_deleteuser(self):
     self.client.post(url_for('login'), data=dict(
-        email="admin@admin.com", password="admin2016"), follow_redirects=True)
+        email="test@testemail.co.uk", password="Testing123Testing"), follow_redirects=True)
     response = self.client.post(
         url_for('account_delete'), follow_redirects=True)
     self.assertIn(b'Login', response.data)
