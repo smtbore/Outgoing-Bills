@@ -148,3 +148,25 @@ class TestFunctionality(TestBase):
     response = self.client.post(
         url_for('account_delete'), follow_redirects=True)
     self.assertIn(b'Login', response.data)
+
+  def test_add_new_outgoing_transaction(self):
+    with self.client:
+      self.client.post(
+          '/login',
+          data=dict(
+              email="test@testemail.co.uk",
+              password="Testing123Testing"
+          ),
+          follow_redirects=True
+      )
+      with self.client:
+        self.client.post(
+          '/newtransaction/outgoing',
+          data=dict(
+              outgoing_category="Bills",
+              outgoing_transaction_amount="200"
+          ),
+          follow_redirects=True
+      )
+      response = self.client.get(url_for('home'))
+      self.assertIn(b'Bills', response.data)
