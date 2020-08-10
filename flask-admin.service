@@ -1,0 +1,12 @@
+[Unit]
+Description=Flask
+[Service]
+User=flask-admin
+WorkingDirectory=/opt/flask-admin
+EnvironmentFile=/opt/flask-admin/flask.env
+ExecStart=/bin/sh \
+	-c 'cd /opt/flask-admin && \
+	. ./venv/bin/activate && \
+	gunicorn --workers=4 --bind=0.0.0.0:5000 app:app'
+[Install]
+WantedBy=multi-user.target
